@@ -1,8 +1,10 @@
 package com.example.restaurantbeaconapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,10 +33,6 @@ import org.altbeacon.beacon.Region;
 import java.util.UUID;
 
 public class MainActivity extends Activity implements MonitorNotifier {
-    private static final Identifier identifier = Identifier.fromUuid(UUID.fromString("E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"));
-    private static final Identifier identifier2 = Identifier.fromInt(2450);
-    private static final Identifier identifier3 = Identifier.fromInt(8791);
-    public static final Region wildcardRegion = new Region("wildcardRegion", identifier, identifier2, identifier3);
 
     private TextView textView;
     private Button buttonMenu;
@@ -44,53 +42,26 @@ public class MainActivity extends Activity implements MonitorNotifier {
     private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
     protected static final String TAG = "MainActivity";
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BeaconManager beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
-
-
-        beaconManager.getBeaconParsers().clear();
-        beaconManager.getBeaconParsers().add(new BeaconParser().
-                setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
-
-        BeaconManager.setDebug(true);
-
-        beaconManager.addMonitorNotifier(this);
-
-        for (Region region: beaconManager.getMonitoredRegions()) {
-            beaconManager.stopMonitoring(region);
-        }
-
-        beaconManager.startMonitoring(wildcardRegion);
+        BeaconManager.getInstanceForApplication(this).addMonitorNotifier(this);
 
         verifyBluetooth();
         requestPermissions();
-
-
 
         buttonMenu = (Button) findViewById(R.id.buttonMenu);
         buttonBooking = (Button) findViewById(R.id.buttonBooking);
         textView = (TextView) findViewById(R.id.textView);
 
-        textView.setVisibility(View.GONE);
-        buttonMenu.setVisibility(View.GONE);
-        buttonBooking.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void didEnterRegion(Region region) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setVisibility(View.VISIBLE);
-                buttonMenu.setVisibility(View.VISIBLE);
-                buttonBooking.setVisibility(View.VISIBLE);
-                textView.setText("Beacon was found");
-            }
-        });
+        if (!ReferenceApplication.inRegion) {
+            buttonMenu.setVisibility(View.GONE);
+            buttonBooking.setVisibility(View.GONE);
+        }
+        else setTextView("Beacon was finded!");
 
         buttonMenu.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), Menu.class);
@@ -99,6 +70,30 @@ public class MainActivity extends Activity implements MonitorNotifier {
         buttonBooking.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), Booking.class);
             view.getContext().startActivity(intent);});
+
+
+    }
+
+    @Override
+    public void didEnterRegion(Region region) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //textView.setVisibility(View.VISIBLE);
+                buttonMenu.setVisibility(View.VISIBLE);
+                buttonBooking.setVisibility(View.VISIBLE);
+            }
+        });
+/*
+        buttonMenu.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), Menu.class);
+            view.getContext().startActivity(intent);});
+
+        buttonBooking.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), Booking.class);
+            view.getContext().startActivity(intent);});
+
+ */
     }
 
     @Override
@@ -106,16 +101,17 @@ public class MainActivity extends Activity implements MonitorNotifier {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textView.setVisibility(View.GONE);
+                //textView.setVisibility(View.GONE);
                 buttonMenu.setVisibility(View.GONE);
                 buttonBooking.setVisibility(View.GONE);
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
-
+        setTextView("didDetermineStateForRegion called with state: " + (state == 1 ? "INSIDE (" + state + ")" : "OUTSIDE (" + state + ")"));
     }
 
 
@@ -156,6 +152,7 @@ public class MainActivity extends Activity implements MonitorNotifier {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -264,5 +261,13 @@ public class MainActivity extends Activity implements MonitorNotifier {
                 return;
             }
         }
+    }
+
+    private void setTextView (String str) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                textView.setText(str);
+            }
+        });
     }
 }
