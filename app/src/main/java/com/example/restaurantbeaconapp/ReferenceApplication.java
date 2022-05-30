@@ -9,7 +9,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
+import android.os.RemoteException;
 
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
@@ -43,6 +43,18 @@ public class ReferenceApplication extends Application implements MonitorNotifier
         for (Region region: beaconManager.getMonitoredRegions()) {
             beaconManager.stopMonitoring(region);
         }
+
+        beaconManager.setForegroundScanPeriod(1000L);
+        beaconManager.setForegroundBetweenScanPeriod(0L);
+        beaconManager.setBackgroundScanPeriod(1100L);
+        beaconManager.setBackgroundBetweenScanPeriod(3600L);
+
+        try {
+            beaconManager.updateScanPeriods();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
 
         beaconManager.startMonitoring(wildcardRegion);
     }
