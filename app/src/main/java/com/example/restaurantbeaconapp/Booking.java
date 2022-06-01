@@ -9,8 +9,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
-import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+
+import java.util.Objects;
 
 public class Booking extends AppCompatActivity {
 
@@ -19,6 +22,21 @@ public class Booking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
         if(checkInternetConnection(this)) {
             WebView webw = findViewById(R.id.webview);
             webw.getSettings().setJavaScriptEnabled(true);
