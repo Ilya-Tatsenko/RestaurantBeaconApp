@@ -1,19 +1,12 @@
 package com.example.restaurantbeaconapp;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,22 +14,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.BeaconManager;
-import org.altbeacon.beacon.BeaconParser;
-import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.Region;
 
-import java.util.UUID;
-
 public class MainActivity extends Activity implements MonitorNotifier {
 
-    private TextView textView;
-    private Button buttonMenu;
-    private Button buttonBooking;
+    private ImageView logo;
+    private ImageView buttonMenu;
+    private ImageView buttonBooking;
+
+    private Animation logoAnimation;
+    private TextView searching;
 
     private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
     private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
@@ -53,35 +47,47 @@ public class MainActivity extends Activity implements MonitorNotifier {
         verifyBluetooth();
         requestPermissions();
 
-        buttonMenu = (Button) findViewById(R.id.buttonMenu);
-        buttonBooking = (Button) findViewById(R.id.buttonBooking);
-        textView = (TextView) findViewById(R.id.textView);
+       buttonMenu = (ImageView) findViewById(R.id.menu);
+       buttonBooking = (ImageView) findViewById(R.id.booking);
+       logo = (ImageView) findViewById(R.id.logo);
+       searching = findViewById(R.id.searchText);
+
+
 
         if (!ReferenceApplication.inRegion) {
-            buttonMenu.setVisibility(View.GONE);
-            buttonBooking.setVisibility(View.GONE);
+          buttonMenu.setVisibility(View.GONE);
+          buttonBooking.setVisibility(View.GONE);
+          logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
+          logo.startAnimation(logoAnimation);
         }
-        else setTextView("Beacon was finded!");
 
-        buttonMenu.setOnClickListener(view -> {
+      buttonMenu.setOnClickListener(view -> {
+          view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_anim));
             Intent intent = new Intent(view.getContext(), Menu.class);
             view.getContext().startActivity(intent);});
 
+
+
         buttonBooking.setOnClickListener(view -> {
+            view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_anim));
             Intent intent = new Intent(view.getContext(), Booking.class);
             view.getContext().startActivity(intent);});
+
 
 
     }
 
     @Override
     public void didEnterRegion(Region region) {
+        logo.clearAnimation();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 //textView.setVisibility(View.VISIBLE);
                 buttonMenu.setVisibility(View.VISIBLE);
-                buttonBooking.setVisibility(View.VISIBLE);
+               buttonBooking.setVisibility(View.VISIBLE);
+                logo.setVisibility(View.GONE);
+                searching.setVisibility(View.GONE);
             }
         });
 /*
@@ -101,9 +107,12 @@ public class MainActivity extends Activity implements MonitorNotifier {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //textView.setVisibility(View.GONE);
+                logo.setVisibility(View.VISIBLE);
+                searching.setVisibility(View.VISIBLE);
                 buttonMenu.setVisibility(View.GONE);
                 buttonBooking.setVisibility(View.GONE);
+                logoAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.logo_anim);
+                logo.startAnimation(logoAnimation);
             }
         });
     }
@@ -111,7 +120,6 @@ public class MainActivity extends Activity implements MonitorNotifier {
     @SuppressLint("SetTextI18n")
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
-        setTextView("didDetermineStateForRegion called with state: " + (state == 1 ? "INSIDE (" + state + ")" : "OUTSIDE (" + state + ")"));
     }
 
 
@@ -263,11 +271,4 @@ public class MainActivity extends Activity implements MonitorNotifier {
         }
     }
 
-    private void setTextView (String str) {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                textView.setText(str);
-            }
-        });
-    }
 }
