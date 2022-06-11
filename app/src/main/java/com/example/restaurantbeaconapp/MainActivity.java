@@ -54,11 +54,19 @@ public class MainActivity extends Activity implements MonitorNotifier {
 
 
 
-        if (!ReferenceApplication.inRegion) {
-          buttonMenu.setVisibility(View.GONE);
-          buttonBooking.setVisibility(View.GONE);
-          logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
-          logo.startAnimation(logoAnimation);
+        if (ReferenceApplication.inRegion) {
+          buttonMenu.setVisibility(View.VISIBLE);
+          buttonBooking.setVisibility(View.VISIBLE);
+          logo.setVisibility(View.GONE);
+          searching.setVisibility(View.GONE);
+        } else {
+            logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
+            logo.startAnimation(logoAnimation);
+
+            buttonMenu.setVisibility(View.GONE);
+            buttonBooking.setVisibility(View.GONE);
+            logo.setVisibility(View.VISIBLE);
+            searching.setVisibility(View.VISIBLE);
         }
 
       buttonMenu.setOnClickListener(view -> {

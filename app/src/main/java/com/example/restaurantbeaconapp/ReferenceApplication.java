@@ -47,7 +47,7 @@ public class ReferenceApplication extends Application implements MonitorNotifier
         beaconManager.setForegroundScanPeriod(1100L);
         beaconManager.setForegroundBetweenScanPeriod(0L);
         beaconManager.setBackgroundScanPeriod(1100L);
-        beaconManager.setBackgroundBetweenScanPeriod(3600L);
+        beaconManager.setBackgroundBetweenScanPeriod(0L);
 
         try {
             beaconManager.updateScanPeriods();

@@ -9,7 +9,9 @@
         <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/activity_booking.xml" value="0.33" />
         <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/activity_intro.xml" value="0.18" />
         <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/activity_main.xml" value="0.18473895582329317" />
-        <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/activity_menu.xml" value="0.22" />
+        <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/activity_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/category_item.xml" value="0.9" />
+        <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/food_item.xml" value="0.4744094488188976" />
         <entry key="..\:/Users/Ilya/AndroidStudioProjects/RestaurantBeaconApp/app/src/main/res/layout/logo_anim.xml" value="0.1503623188405797" />
       </map>
     </option>
@@ -19,5 +21,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

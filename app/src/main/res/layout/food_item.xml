@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/foodCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="2dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="324px"
+                android:layout_height="304px"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_example2" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F2F2F2"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingStart="20px"
+                    android:paddingTop="14px"
+                    android:paddingEnd="40px"
+                    android:text="Котлеты рыбные с пюре из сельдерея"
+                    android:textColor="#000000"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id=
+                        "@+id/weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingStart="20px"
+                    android:paddingTop="8px"
+                    android:paddingEnd="40px"
+                    android:text="230 г"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/buttonWithPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20px"
+                    android:layout_marginTop="4px"
+                    android:layout_marginEnd="20px"
+                    android:layout_marginBottom="4px"
+                    android:elevation="19dp"
+                    android:gravity="center"
+                    android:minHeight="92dp"
+                    android:scaleType="fitXY"
+                    android:shadowColor="#00000017"
+                    android:shadowDx="0"
+                    android:shadowDy="4"
+                    android:shadowRadius="20"
+                    android:text="490 р"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    app:cornerRadius="20dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
