@@ -2,14 +2,23 @@ package com.example.restaurantbeaconapp.Model;
 
 public class Food {
     int id;
-    String img, name, weight, price;
+    String img, name, weight, price, category;
 
-    public Food(int id, String img, String name, String weight, String price) {
+    public Food(int id, String img, String name, String weight, String price, String category) {
         this.id = id;
         this.img = img;
         this.name = name;
         this.weight = weight;
         this.price = price;
+        this.category = category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public int getId() {
