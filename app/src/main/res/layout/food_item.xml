@@ -27,7 +27,7 @@
                 android:layout_width="324px"
                 android:layout_height="304px"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_example2" />
+                app:srcCompat="@drawable/ic_hotter1" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -63,13 +63,14 @@
                 <Button
                     android:id="@+id/buttonWithPrice"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginStart="20px"
                     android:layout_marginTop="4px"
                     android:layout_marginEnd="20px"
                     android:layout_marginBottom="4px"
                     android:elevation="19dp"
                     android:gravity="center"
+                    android:maxHeight="92dp"
                     android:minHeight="92dp"
                     android:scaleType="fitXY"
                     android:shadowColor="#00000017"

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -54,10 +55,22 @@ public class Menu extends AppCompatActivity implements CategoryAdapter.OnCategor
 
         setCategoryViewRecycler(categoryList);
 
-        foodList.add(new Food(1, "example2","Котлеты рыбные с пюре из сельдерея","210 г", "110 р", "Горячее"));
-        foodList.add(new Food(2, "example2","Котлеты рыбные с пюре из сельдерея","150 г", "390 р", "Горячее"));
-        foodList.add(new Food(3, "example2","Котлеты рыбные с пюре из сельдерея","150 г", "390 р", "Горячее"));
-        foodList.add(new Food(4, "example2","Котлеты рыбные с пюре из сельдерея","150 г", "390 р", "Напитки"));
+        foodList.add(new Food(1, "hotter1","Пенне с красной рыбой","250 г", "490 р", "Горячее"));
+        foodList.add(new Food(2, "hotter2","Котлеты рыбные с пюре из сельдер...","230 г", "450 р", "Горячее"));
+        foodList.add(new Food(3, "hotter3","Свинина тушеная с яблоками в сливочном соусе","250 г", "450 р", "Горячее"));
+        foodList.add(new Food(4, "hotter4","Лингвини с баклажаном и халуми на гриле","270 г", "490 р", "Горячее"));
+
+        foodList.add(new Food(5, "salad1","Салат с киноа и запеченной горбушей","170 г", "450 р", "Салаты"));
+        foodList.add(new Food(6, "salad2","Салат из кускуса с фетой и битыми огурцами","160 г", "340 р", "Салаты"));
+        foodList.add(new Food(7, "salad3","Салат с ростбифом и картофелем","170 г", "420 р", "Салаты"));
+
+        foodList.add(new Food(8, "vipechka1","Миндальный круассан \n","130 г", "230 р", "Выпечка"));
+        foodList.add(new Food(9, "vipechka2","Шоколадный кекс с фундуком \n","440 г", "650 р", "Выпечка"));
+        foodList.add(new Food(10, "vipechka3","Ромовая баба \n \n","70 г", "110 р", "Выпечка"));
+
+        foodList.add(new Food(11, "drink1","Смузи яблоко-\nсельдере....","300 мл", "370 р", "Напитки"));
+        foodList.add(new Food(12, "drink3","Сок Rich Апельсин\n","200 г", "150 р", "Напитки"));
+
 
         setFoodViewRecycler(foodList);
         fullFoodList.addAll(foodList);
@@ -73,7 +86,7 @@ public class Menu extends AppCompatActivity implements CategoryAdapter.OnCategor
         categoryRecyclerView.setAdapter(categoryAdapter);
     }
     private void setFoodViewRecycler(List<Food> foodList) {
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, foodList.size()/2, RecyclerView.VERTICAL,false);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL,false);
 
         foodRecyclerView = findViewById(R.id.foodsRecyclerView);
         foodRecyclerView.setLayoutManager(layoutManager);
@@ -104,7 +117,7 @@ public class Menu extends AppCompatActivity implements CategoryAdapter.OnCategor
     }
 
      */
-
+//обработчик нажатия на определённую категорю
     @Override
     public void onCurrentCategory(String category) {
         List<Food> filterList = new ArrayList<>();

@@ -104,9 +104,9 @@ public class ReferenceApplication extends Application implements MonitorNotifier
                         0,
                         PendingIntent.FLAG_CANCEL_CURRENT
                 );
-        builder.setSmallIcon(R.drawable.ic_launcher);
-        builder.setContentTitle("I detect a beacon");
-        builder.setContentText("Tap here to see details in the reference app");
+        builder.setSmallIcon(R.drawable.logo_new);
+        builder.setContentTitle("Ресторан совсем рядом!");
+        builder.setContentText("Нажмите, чтобы забронировать столик или посмотреть меню");
         builder.setContentIntent(resultPendingIntent);
         notificationManager.notify(1, builder.build());
     }
